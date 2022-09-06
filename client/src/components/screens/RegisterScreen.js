@@ -21,7 +21,7 @@ const RegisterScreen = ({ history }) => {
     e.preventDefault()
 
     const config = {
-      header: {
+      headers: {
         'Content-Type': 'application/json',
       },
     }
@@ -38,7 +38,7 @@ const RegisterScreen = ({ history }) => {
 
     try {
       const { data } = await axios.post(
-        '/api/auth/register',
+        'http://localhost:5000/api/auth/register',
         { username, email, password },
         config
       )

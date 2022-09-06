@@ -2,12 +2,29 @@ require('dotenv').config({ path: './config.env' })
 const express = require('express')
 const connectDB = require('./config/db')
 const errorHandler = require('./middleware/error')
+const cors = require('cors')
 
 // Connect DB
 connectDB()
 
 const app = express()
 
+app.use(
+  cors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: [
+      'Authorization',
+      'Origin',
+      'X-Requested-With',
+      'Content-Type',
+      'Accept',
+      'Access-Control-Request-Method',
+      'Access-Control-Request-Headers',
+      'Cache-Control',
+    ],
+  })
+)
 app.use(express.json())
 
 app.use('/api/auth', require('./routes/auth'))

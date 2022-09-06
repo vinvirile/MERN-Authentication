@@ -14,21 +14,24 @@ const PrivateScreen = ({ history }) => {
 
     const fetchPrivateData = async () => {
       const config = {
-        header: {
+        headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
       }
 
       try {
-        const { data } = await axios.get('/api/private', config)
+        console.log(config)
+        const { data } = await axios.get(
+          'http://localhost:5000/api/private',
+          config
+        )
         setPrivateData(data.data)
       } catch (error) {
         localStorage.removeItem('authToken')
         setError('You are not authorized please login')
       }
     }
-
     fetchPrivateData()
   }, [])
 
@@ -41,9 +44,7 @@ const PrivateScreen = ({ history }) => {
     <span className='error-message'>{error}</span>
   ) : (
     <>
-      <div style={{ backgroundColor: 'green', color: 'white' }}>
-        {privateData}
-      </div>
+      <div style={{ background: 'green', color: 'white' }}>{privateData}</div>
       <button onClick={logoutHandler}>Logout</button>
     </>
   )
